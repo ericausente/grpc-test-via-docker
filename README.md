@@ -20,9 +20,9 @@ message HelloRequest {
 message HelloReply {
   string message = 1;
 }
+```
 
 Next, create a file named greeter_server.js with the following contents:
-
 ```
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
@@ -111,7 +111,9 @@ This Dockerfile sets up a Node.js environment, copies the project files into the
 
     Build the Docker image: Open a terminal in the project directory and run the following command to build the Docker image:
 
+```
 docker build -t grpc-lab .
+```
 
 This builds a Docker image named grpc-lab using the Dockerfile in the current directory.
 
@@ -119,25 +121,25 @@ This builds a Docker image named grpc-lab using the Dockerfile in the current di
 
     Start the Docker container: Run the following command to start the Docker container from the grpc-lab image:
 
-css
-
+```
 docker run -p 50051:50051 -d --name grpc-server grpc-lab
+```
 
 This starts the gRPC server in the background and maps the exposed port 50051 to port 50051 on your host machine. The -d flag runs the container in detached mode, so you can continue using the terminal.
 
     Test the gRPC client: Open a new terminal window and run the following command to test the gRPC client:
 
-lua
+```
 
 docker run --network host grpc-lab node greeter_client.js Alice
+```
 
 This runs the gRPC client in a separate Docker container, passing in Alice as the name to greet. The --network host flag allows the client container to communicate with the gRPC server running on the host machine. The gRPC client sends a SayHello request to the gRPC server and displays the response.
 
 You should see the following output:
-
-makefile
-
+```
 Greeting: Hello Alice
+```
 
 This confirms that the gRPC server and client are communicating successfully.
 
